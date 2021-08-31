@@ -9,35 +9,14 @@
  */
 class Solution {
     fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-        var nextNode1 = l1
-        var nextNode2 = l2
-        var carry = 0
-        var tmpNode = ListNode(0)
-        val resultNode = tmpNode
+        return addTwoNumbers(l1, l2, 0)
+    }
 
-        while (nextNode1 != null || nextNode2 != null || carry > 0) {
-            var tempSum = carry
-            carry = 0
-
-            if (nextNode1 != null) {
-                tempSum += nextNode1.`val`
-                nextNode1 = nextNode1.next
-            }
-
-            if (nextNode2 != null) {
-                tempSum += nextNode2.`val`
-                nextNode2 = nextNode2.next
-            }
-
-            if (tempSum >= 10) {
-                tempSum %= 10
-                carry = 1
-            }
-
-            tmpNode.next = ListNode(tempSum)
-            tmpNode = tmpNode.next!!
+    private fun addTwoNumbers(l1: ListNode?, l2: ListNode?, carry: Int): ListNode? {
+        if (l1 == null && l2 == null && carry == 0) {
+            return null
         }
-
-        return resultNode.next
+        var temp = (l1?.`val` ?: 0) + (l2?.`val` ?: 0) + carry
+        return ListNode(temp % 10).apply { next = addTwoNumbers(l1?.next, l2?.next, temp / 10) }
     }
 }
