@@ -4,6 +4,7 @@ class Solution {
 
         nums.forEachIndexed { index, value ->
             tempMap[target - value]?.let {
+
                 return@twoSum intArrayOf(it, index)
             }
             tempMap[value] = index
